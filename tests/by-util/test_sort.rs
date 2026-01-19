@@ -586,6 +586,15 @@ fn test_numeric_unique_ints2() {
 }
 
 #[test]
+fn test_numeric_leading_plus() {
+    new_ucmd!()
+        .arg("-n")
+        .pipe_in("+1\n+10\n+2\n")
+        .succeeds()
+        .stdout_is("+1\n+10\n+2\n");
+}
+
+#[test]
 fn test_keys_open_ended() {
     test_helper("keys_open_ended", &["-k 2.3"]);
 }

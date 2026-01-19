@@ -604,7 +604,13 @@ impl<'a> Line<'a> {
             let line_num_float = (!line.iter().any(u8::is_ascii_alphabetic))
                 .then(|| std::str::from_utf8(line).ok())
                 .flatten()
-                .and_then(|s| s.parse::<f64>().ok());
+                .and_then(|s| {
+                    if s.starts_with('+') {
+                        None
+                    } else {
+                        s.parse::<f64>().ok()
+                    }
+                });
             line_data.line_num_floats.push(line_num_float);
         }
         for (selector, selection) in settings
