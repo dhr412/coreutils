@@ -455,7 +455,10 @@ pub fn uu_app() -> Command {
                 .long(FROM)
                 .help(translate!("numfmt-help-from"))
                 .value_name("UNIT")
-                .default_value(FROM_DEFAULT),
+                .default_value(FROM_DEFAULT)
+                .value_parser(ShortcutValueParser::new([
+                    "auto", "none", "si", "iec", "iec-i",
+                ])),
         )
         .arg(
             Arg::new(FROM_UNIT)
@@ -469,7 +472,8 @@ pub fn uu_app() -> Command {
                 .long(TO)
                 .help(translate!("numfmt-help-to"))
                 .value_name("UNIT")
-                .default_value(TO_DEFAULT),
+                .default_value(TO_DEFAULT)
+                .value_parser(ShortcutValueParser::new(["none", "si", "iec", "iec-i"])),
         )
         .arg(
             Arg::new(TO_UNIT)
